@@ -1,11 +1,11 @@
-## SecurityProject2025 Gruop 16
+##SecurityProject2025 Gruop 16
 Use CVE-2023-45866 to connect to a "victim"'s outdated linux os, disguised as a bluetooth keyboard, and inject keystrokes, to spoof the victim's firefox and steal the victim's browswer cookies. We specifically aimed for cookies related to "canvas.tue.nl" in the initial approaved idea, but any cookie can be stolen. 
 
-The Cookie Stealer set up is under the main branch; the bluetooth hack set up is under the ducky branch. However, all the functionalities are explained under this README file. 
-
 ## Cookie Stealer
+Launch server.py, make sure setup.sh and firefox (executable version) is under the directory script/, wait for the "victim" to log into canvas, and receive a cookie file in json. You can load the cookies into your own browser using an extention called "Cookie Quick Manager".
 
 #### server.py:
+TODO
 
 #### scripts/setup.sh:
 This is a bash script that will be downloaded to the "victim"'s computer and executed. The precondition to run this script is that the fake firefox is already downloaded under the same directory. Normally, firefox executable is located under /usr/bin/ or /snap/bin/. We create a directory $HOME/bin/, and copy the fake firefox there. Then we append this directory to the front of the path environment variable, defined shell configuration files such as .bashrc or .zshrc, so that this firefox will be found first and called when every the command "firefox" is initiated. If a Desktop folder exists under $HOME, then the "victim" also has a desktop environment, so we add a desktop shortcut to the fake firefox to increase the chance of success.
@@ -24,3 +24,16 @@ $ pyinstaller firefox.py --onefile --add-data "$(realpath ~/.cache/ms-playwright
 And this will bundle an executable into ./dist/firefox
 
 ## BluetoothDucky
+To connect to the "victim"'s outdated linux os disguised as a bluetooth keyboard, we use an existing repository that performs this hack: (Link to repo)[https://github.com/Eason-zz/BluetoothDucky.git].
+
+#### BluetoothDucky.py:
+The code file BluetoothDucky.py pulled from the github has a small bug in the main function. We fix it in our BluetoothDucky.py. We also change our "disguised bluetooth keyboard"'s name to "Earphones" to lower the chance of detection.
+
+#### Payload.txt
+To perform this hack, but must inject our own custom key strokes. This is included in payload.txt. Below are the general steps we perform in payload:
+- Open the terminal
+- Go to user directory
+- Make a directory called ToolBox
+- Download firefox and setup.sh into the directory and make them executable
+- Call setup.sh
+- Exit terminal
