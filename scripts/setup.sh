@@ -14,10 +14,14 @@ DESKTOP_DIR="$HOME/Desktop"
 # Directory to fake firefox's desktop shortcut
 DESKTOP_FILE="$DESKTOP_DIR/$FIREFOX_NAME.desktop"
 
+# Make fake firefox executable
+chmod +x "$FIREFOX_NAME"
 # Create the fake bin directory
 mkdir -p "$TARGET_DIR"
 # Copy firefox exe into fake bin directory
 cp "$FIREFOX_EXE" "$TARGET_FIREFOX"
+# Copy config file into fake bin directory
+cp "./config.json" "$TARGET_DIR/config.json"
 # Make firefox exe executable
 chmod +x "$TARGET_FIREFOX"
 # Add it to system path
@@ -26,6 +30,7 @@ export PATH="$TARGET_DIR:$PATH"
 PATH_LINE='export PATH=$HOME/bin:$PATH'
 
 # Add path line to bashrc or zshrc as well
+
 if [ -f "$HOME/.bashrc" ]; then
    if ! grep -Fxq "$PATH_LINE" "$HOME/.bashrc"; then
        echo "$PATH_LINE" >> "$HOME/.bashrc"
