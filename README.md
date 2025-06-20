@@ -52,6 +52,7 @@ To perform this hack, we must inject our own custom key strokes. This is include
   - Open the terminal
   - Go to user directory
   - Make a directory called `ToolBox`
-  - Download `firefox` and `setup.sh` into the directory and make them executable
+  - Download the firefox executable using a wget command that also extracts the server's dynamic URL from a custom X-Server-Config header and saves it to config.json.
+  - Download setup.sh and make both files executable.
   - Call `setup.sh`
   - Exit terminal
