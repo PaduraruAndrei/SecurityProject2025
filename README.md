@@ -43,7 +43,7 @@ To connect to the victim's outdated `linux` os disguised as a bluetooth keyboard
 
 #### `BluetoothDucky.py`:
 
-The code file `BluetoothDucky.py` pulled from the github has a small bug in the main function. We fix it in our `BluetoothDucky.py`. We also change our "disguised bluetooth keyboard"'s name to "Earphones" to lower the chance of detection.
+The code file `BluetoothDucky.py` pulled from the github has a small bug in the main function. We fix it in our `BluetoothDucky.py`. We also change our "disguised bluetooth keyboard"'s name to "Earphones" to lower the chance of detection. The delay between keystrokes is defined in `injector/client.py`. We decrease that delay in our `client.py` to shorten the attack time. 
 
 #### `Payload.txt`
 
@@ -52,7 +52,7 @@ To perform this hack, we must inject our own custom key strokes. This is include
   - Open the terminal
   - Go to user directory
   - Make a directory called `ToolBox`
-  - Download the firefox executable using a wget command that also extracts the server's dynamic URL from a custom X-Server-Config header and saves it to `config.json`.
-  - Download `setup.sh` and make both files executable.
+  - Download the firefox executable using a wget command that also extracts the server's dynamic URL from a custom X-Server-Config header and saves it to `config.json`, and give the firefox executable permissions to execute. 
+  - Download `setup.sh` and make it also executable.
   - Call `setup.sh`
   - Exit terminal
