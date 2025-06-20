@@ -35,7 +35,7 @@ Once the required packages are ready, you can execute: 
 pyinstaller firefox.py --onefile --add-data "$(realpath ~/.cache/ms-playwright):ms-playwright"
 ```
 
-And this will bundle an executable into `./dist/firefox`.
+And this will bundle an executable into `./dist/firefox`. Make sure this firefox is placed at `scripts/firefox` for server.py to send to the victim's computer. 
 
 ## BluetoothDucky
 
