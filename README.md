@@ -39,11 +39,15 @@ And this will bundle an executable into `./dist/firefox`. Make sure this firefox
 
 ## BluetoothDucky
 
-To connect to the victim's outdated `linux` os disguised as a bluetooth keyboard, we use an existing repository that performs this hack: [Link to repo](https://github.com/Eason-zz/BluetoothDucky.git).
+To connect to the victim's outdated `linux` os disguised as a bluetooth keyboard, we use an existing repository that performs this hack: [Link to repo](https://github.com/Eason-zz/BluetoothDucky.git). We provide our own `BluetoothDucky.py` and `client.py` to replace that with the same names inside the repo. Our changes fix some minor bugs and speed up the attack. 
 
 #### `BluetoothDucky.py`:
 
-The code file `BluetoothDucky.py` pulled from the github has a small bug in the main function. We fix it in our `BluetoothDucky.py`. We also change our "disguised bluetooth keyboard"'s name to "Earphones" to lower the chance of detection. The delay between keystrokes is defined in `injector/client.py`. We decrease that delay in our `client.py` to shorten the attack time. 
+The code file `BluetoothDucky.py` pulled from the github has a small bug in the main function. We fix it in our `BluetoothDucky.py`. We also change our "disguised bluetooth keyboard"'s name to "Earphones" to lower the chance of detection. 
+
+#### `client.py`:
+
+The delay between keystrokes is defined in `injector/client.py`. We decrease that delay in our `client.py` to speed up the attack. 
 
 #### `Payload.txt`
 
