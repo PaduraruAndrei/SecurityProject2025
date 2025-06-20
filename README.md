@@ -45,8 +45,8 @@ To connect to the victim's outdated `linux` os disguised as a bluetooth keyboard
 
 The code file `BluetoothDucky.py` pulled from the github has a small bug in the main function. We fix it in our `BluetoothDucky.py`. We also change our "disguised bluetooth keyboard"'s name to "Earphones" to lower the chance of detection. 
 
-#### `injector/hid.py`:
-The original script could not type special characters such as |, >, and &, which were required for our payload command to work correctly. To fix this, we modified the ascii_to_hid function within this file, adding the necessary key code mappings for these characters
+#### `hid.py`:
+The original script under `injector/hid.py` could not type special characters such as |, >, and &, which were required for our payload command to work correctly. To fix this, we modified the ascii_to_hid function within this file, adding the necessary key code mappings for these characters
 
 #### `client.py`:
 
